@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{% block title %}{% endblock %} | deep cyber alarm</title>
+    {% endblock %}
+  </head>
+  <body>
+    <div id="header">
+        <h1>Deep Cyber Alarm</h1>
+        <ul class="nav">
+            <li><a href="/">Recent cyber alarms</a></li>
+            <li><a href="/page/register">Register new device</a></li>
+            <li><a href="/page/imprint">Imprint / Impressum</a></li>
+            <li><a href="/page/datenschutz">Datenschutz</a></li>
+        </ul>
+    </div>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+        <hr>
+      {% block footer %}
+      <a href="https://alarm.deepcyber.de/">Deep Cyber Cyber Alarm</a>.
+      {% endblock %}
+    </div>
+  </body>
+</html>

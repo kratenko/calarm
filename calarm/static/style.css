@@ -1,0 +1,10 @@
+input {
+    border:solid;
+}
+tr.error input {
+    border:solid red;
+}
+
+tr.error i.error {
+    color:red;
+}

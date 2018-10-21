@@ -1,4 +1,18 @@
-.idea
+venv/
+
+*.pyc
 **/__pycache__
-venv
+
+instance/
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+dist/
+build/
+*.egg-info/
+
+# editor
+.idea
 .*.swp

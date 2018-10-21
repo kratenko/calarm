@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block title %}Register new device{% endblock %}
+{% block content %}
+    <h1>Register new cyber alarm device</h1>
+    <form method="post">
+        <p>
+            Be prepared to write down some values after submission. Those are important, and your device will not
+            work without them! If you lose those, you will need to contact us, to use that DevEUI or name.<br>
+            We reserve the right to delete entries made here for any reason we see fit.
+        </p>
+        <table>
+            <tr class="{{ 'error' if 'deveui' in error else '' }}">
+                <td>
+                    <label for="deveui">DevEUI</label>
+                </td><td>
+                    <input id="deveui" name="deveui" autofocus>
+                </td><td>
+                    {% if 'deveui' in error %}
+                        <i class="error">{{ error['deveui'] }}</i> &ndash;
+                    {% endif %}
+                    <i>8 bytes as hex, e.g. "A0B1C2D3E4F58697".</i>
+                </td>
+            </tr>
+            <tr class="{{ 'error' if 'name' in error else '' }}">
+                <td>
+                    <label for="name">Name</label>
+                </td><td>
+                    <input id="name" name="name">
+                </td><td>
+                    {% if 'name' in error %}
+                        <i class="error">{{ error['name'] }}</i> &ndash;
+                    {% endif %}
+                    <i>2-32 chars, must match ^[a-z0-9]+(-[a-z0-9]+)*$ and not match ^[a-z0-9]{16}$.</i>
+                </td>
+            </tr>
+            <tr class="{{ 'error' if 'description' in error else '' }}">
+                <td>
+                    <label for="description">Description</label>
+                </td><td>
+                    <input id="description" name="description">
+                </td><td>
+                    {% if 'description' in error %}
+                        <i class="error">{{ error['description'] }}</i> &ndash;
+                    {% endif %}
+                    <i>Optional. A few words to describe this specific alarm device. 512 chars max.</i>
+                </td>
+            </tr>
+            {%  if 'top' in error %}
+            <tr>
+                <td colspan="4">{{ error['top'] }}</td>
+            </tr>
+            {%  endif  %}
+            <tr>
+                <td colspan="4"><input type="submit" value="register"></td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}

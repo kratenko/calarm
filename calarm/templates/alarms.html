@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}Most recent cyber alarms{% endblock %}
+{% block content %}
+    <div class="alarms">
+    <h1>Recent cyber alarms</h1>
+    {% for alarm in alarms %}
+        {% if alarm.level %}
+            <div class="alarm">
+                <h4>CYBER ALARM LEVEL {{alarm.level}}!</h4>
+                <p>
+                    <i>{{ alarm.created }} UTC</i> &ndash; cyber alarm device <b>unknown</b> reported cyber alarm level {{ alarm.level }}!
+                </p>
+            </div>
+        {% elif alarm.message %}
+            <div class="announcement">
+                <h4>CYBER ALARM ANNOUNCEMENT!</h4>
+                <p>
+                    <i>{{ alarm.created }} UTC</i> &ndash; cyber alarm device <b>unknown</b> issued an cyber announcement: <i>{{ alarm.message }}</i>!
+                </p>
+            </div>
+        {% else %}
+            <div class="erroneous">
+                <h4>Erroneous cyber alarm</h4>
+                <p>
+                    <i>{{ alarm.created }} UTC</i> &ndash; invalid cyber alarm reported by device <b>unknown</b>!
+                </p>
+            </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endblock %}
