@@ -4,6 +4,24 @@ import click
 from flask import current_app, g
 from flask.cli import with_appcontext
 
+DIRTY_DB_PATH = ""
+
+
+class dirty_db:
+    db = None
+
+    def __enter__(self):
+        self.db = sqlite3.connect(
+            DIRTY_DB_PATH,
+            detect_types=sqlite3.PARSE_DECLTYPES
+        )
+        self.db.row_factory = sqlite3.Row
+        return self.db
+
+    def __exit__(self, *args, **vargs):
+        if self.db:
+            self.db.close()
+
 
 def get_db():
     if 'db' not in g:
@@ -38,3 +56,5 @@ def init_db_command():
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
+    global DIRTY_DB_PATH
+    DIRTY_DB_PATH = app.config['DATABASE']

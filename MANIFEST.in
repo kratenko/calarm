@@ -1,0 +1,4 @@
+include calarm/schema.sql
+graft calarm/static
+graft calarm/templates
+global-exlude *.pyc

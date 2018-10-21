@@ -11,6 +11,9 @@ def with_urllib3(url):
 
 
 url = 'http://127.0.0.1:5000/ttn/sub'
+#url = 'https://alarm.deepcyber.de/calarm.fcgi/ttn/sub'
+#url = 'https://alarm.deepcyber.de/ttn/sub'
+
 response = with_urllib3(url)
 client = sseclient.SSEClient(response)
 for event in client.events():

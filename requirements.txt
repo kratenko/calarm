@@ -1,5 +1,4 @@
 flask
-ttn<3
 sseclient-py
-requests
 urllib3
+typing

@@ -48,7 +48,7 @@ app = create_app()
 def hello_world():
     db = get_db()
     alarms = db.execute(
-        'SELECT created, level, message'
+        'SELECT devid, deveui, created, level, message'
         ' FROM alarm'
         ' ORDER BY created DESC'
         ' LIMIT 10'

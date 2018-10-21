@@ -8,14 +8,14 @@
             <div class="alarm">
                 <h4>CYBER ALARM LEVEL {{alarm.level}}!</h4>
                 <p>
-                    <i>{{ alarm.created }} UTC</i> &ndash; cyber alarm device <b>unknown</b> reported cyber alarm level {{ alarm.level }}!
+                    <i>{{ alarm.created }} UTC</i> &ndash; cyber alarm device <b>{{ alarm.devid }}</b> reported cyber alarm level {{ alarm.level }}!
                 </p>
             </div>
         {% elif alarm.message %}
             <div class="announcement">
                 <h4>CYBER ALARM ANNOUNCEMENT!</h4>
                 <p>
-                    <i>{{ alarm.created }} UTC</i> &ndash; cyber alarm device <b>unknown</b> issued an cyber announcement: <i>{{ alarm.message }}</i>!
+                    <i>{{ alarm.created }} UTC</i> &ndash; cyber alarm device <b>{{ alarm.devid }}</b> issued a cyber announcement: <i>{{ alarm.message }}</i>!
                 </p>
             </div>
         {% else %}
