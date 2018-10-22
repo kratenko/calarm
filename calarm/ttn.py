@@ -17,8 +17,8 @@ def check_auth(username, password):
     """
     config = flask.current_app.config
     try:
-        isuser = hmac.compare_digest(config['TTN_USER', username])
-        ispass = hmac.compare_digest(config['TTN_PASSWORD', password])
+        isuser = hmac.compare_digest(config['TTN_USER'], username)
+        ispass = hmac.compare_digest(config['TTN_PASSWORD'], password)
     except KeyError:
         flask.current_app.logger.warn("No credentials for ttn specified.")
         return False
@@ -69,15 +69,16 @@ def callback():
         ("/ttn/callback", flask.request.get_data())
     )
     data = flask.request.get_json() or {}
+    payload = data.get('payload_fields', {})
     db.execute(
         'INSERT INTO alarm (devid, deveui, action, level, message)'
         ' VALUES(?,?,?,?,?)',
         (
             data.get('dev_id', '[unknown]'),
             data.get('hardware_serial', '[unknown]'),
-            data.get('action', '[unknown]'),
-            data.get('level', None),
-            data.get('message', None),
+            payload.get('action', '[unknown]'),
+            payload.get('level', None),
+            payload.get('message', None),
         )
     )
     db.commit()
@@ -109,13 +110,11 @@ def get_events(since):
         yield ev
 
 
-@bp.route("/sub", methods=['POST', 'GET'])
+@bp.route("/sub", methods=['POST', ])
 @requires_auth
 def subs():
     def gen(since) -> Iterator[str]:
-        # yield "data: {}"
         last = since
-        print("pre")
         while True:
             with os.fdopen(os.open("/tmp/calarm", os.O_RDONLY)) as _:
                 for ev in get_events(last):
@@ -143,7 +142,7 @@ def subs():
     )
 
 
-@bp.route("/push")
-def push():
-    ping_pipe()
-    return "Ok"
+#@bp.route("/push")
+#def push():
+#    ping_pipe()
+#    return "Ok"
